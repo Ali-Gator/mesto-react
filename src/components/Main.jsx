@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import api from '../utils/Api';
+import Card from './Card';
 
-export default function Main({onEditAvatar, onEditProfile, onAddPlace}) {
+export default function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
 
     const [userName, setUserName] = useState('');
     const [userDescription, setUserDescription] = useState('');
@@ -35,17 +36,8 @@ export default function Main({onEditAvatar, onEditProfile, onAddPlace}) {
             <section className="page__cards cards">
                 <ul className="cards__list">
                     {cards.map(card => (
-                        <li className="card" key={card._id}>
-                            <img className="card__image" alt={card.name} src={card.link}/>
-                            <div className="card__description">
-                                <h2 className="card__text">{card.name}</h2>
-                                <div className="card__like-wrapper">
-                                    <button className="card__like-icon" type="button"></button>
-                                    <p className="card__like-counter">{card.likes.length}</p>
-                                </div>
-                            </div>
-                            <button className="card__delete-icon" type="button"></button>
-                        </li>))}
+                        <Card card={card} key={card._id} onCardClick={onCardClick}/>
+                    ))}
                 </ul>
             </section>
         </main>
