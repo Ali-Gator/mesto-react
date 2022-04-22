@@ -43,11 +43,11 @@ function App() {
                            onClose={closeAllPopups}
                            title={'Обновить аватар'}
                            name={'avatar'}
-                           children={<div class="popup__input-wrapper">
-                               <input class="popup__text-input popup__text-input_type_avatar-link"
+                           children={<div className="popup__input-wrapper">
+                               <input className="popup__text-input popup__text-input_type_avatar-link"
                                       id="avatar-link-field" type="url"
                                       name="avatar-link" placeholder="Ссылка на аватар" required/>
-                               <span class="avatar-link-field-error popup__input-error"></span>
+                               <span className="avatar-link-field-error popup__input-error"></span>
                            </div>}
             />
             <PopupWithForm isOpen={isEditProfilePopupOpen}
@@ -55,18 +55,18 @@ function App() {
                            title={'Редактировать профиль'}
                            name={'profile'}
                            children={<>
-                               <div class="popup__input-wrapper">
-                                   <input class="popup__text-input popup__text-input_type_username" id="name-field"
+                               <div className="popup__input-wrapper">
+                                   <input className="popup__text-input popup__text-input_type_username" id="name-field"
                                           type="text" name="username"
-                                          placeholder="Имя" minlength="2" maxlength="40" required/>
-                                   <span class="name-field-error popup__input-error"></span>
+                                          placeholder="Имя" minLength="2" maxLength="40" required/>
+                                   <span className="name-field-error popup__input-error"></span>
                                </div>
-                               <div class="popup__input-wrapper">
-                                   <input class="popup__text-input popup__text-input_type_description"
+                               <div className="popup__input-wrapper">
+                                   <input className="popup__text-input popup__text-input_type_description"
                                           id="description-field" type="text"
-                                          name="description" placeholder="Описание" minlength="2" maxlength="200"
+                                          name="description" placeholder="Описание" minLength="2" maxLength="200"
                                           required/>
-                                   <span class="description-field-error popup__input-error"></span>
+                                   <span className="description-field-error popup__input-error"></span>
                                </div>
                            </>}
             />
@@ -75,18 +75,18 @@ function App() {
                            title={'Новое место'}
                            name={'card-add'}
                            children={<>
-                               <div class="popup__input-wrapper">
-                                   <input class="popup__text-input popup__text-input_type_card-heading"
+                               <div className="popup__input-wrapper">
+                                   <input className="popup__text-input popup__text-input_type_card-heading"
                                           id="card-heading-field" type="text"
-                                          name="card-heading" placeholder="Название" minlength="2" maxlength="30"
+                                          name="card-heading" placeholder="Название" minLength="2" maxLength="30"
                                           required/>
-                                   <span class="card-heading-field-error popup__input-error"></span>
+                                   <span className="card-heading-field-error popup__input-error"></span>
                                </div>
-                               <div class="popup__input-wrapper">
-                                   <input class="popup__text-input popup__text-input_type_image-link"
+                               <div className="popup__input-wrapper">
+                                   <input className="popup__text-input popup__text-input_type_image-link"
                                           id="image-link-field" type="url"
                                           name="image-link" placeholder="Ссылка на картинку" required/>
-                                   <span class="image-link-field-error popup__input-error"></span>
+                                   <span className="image-link-field-error popup__input-error"></span>
                                </div>
                            </>}
             />
