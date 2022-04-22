@@ -3,8 +3,6 @@ import React from 'react';
 export default function Card(props) {
 
     function handleClick() {
-        console.log(props.card);
-        console.log(props.onCardClick(props.card));
         props.onCardClick(props.card);
     }
 
