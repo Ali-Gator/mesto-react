@@ -48,54 +48,51 @@ function App() {
             <PopupWithForm isOpen={isEditAvatarPopupOpen}
                            onClose={closeAllPopups}
                            title="Обновить аватар"
-                           name="avatar"
-                           children={<div className="popup__input-wrapper">
-                               <input className="popup__text-input popup__text-input_type_avatar-link"
-                                      id="avatar-link-field" type="url"
-                                      name="avatar-link" placeholder="Ссылка на аватар" required/>
-                               <span className="avatar-link-field-error popup__input-error"></span>
-                           </div>}
-            />
+                           name="avatar">
+                <div className="popup__input-wrapper">
+                    <input className="popup__text-input popup__text-input_type_avatar-link"
+                           id="avatar-link-field" type="url"
+                           name="avatar-link" placeholder="Ссылка на аватар" required/>
+                    <span className="avatar-link-field-error popup__input-error"></span>
+                </div>
+            </PopupWithForm>
+
             <PopupWithForm isOpen={isEditProfilePopupOpen}
                            onClose={closeAllPopups}
                            title="Редактировать профиль"
-                           name="profile"
-                           children={<>
-                               <div className="popup__input-wrapper">
-                                   <input className="popup__text-input popup__text-input_type_username" id="name-field"
-                                          type="text" name="username"
-                                          placeholder="Имя" minLength="2" maxLength="40" required/>
-                                   <span className="name-field-error popup__input-error"></span>
-                               </div>
-                               <div className="popup__input-wrapper">
-                                   <input className="popup__text-input popup__text-input_type_description"
-                                          id="description-field" type="text"
-                                          name="description" placeholder="Описание" minLength="2" maxLength="200"
-                                          required/>
-                                   <span className="description-field-error popup__input-error"></span>
-                               </div>
-                           </>}
-            />
+                           name="profile">
+                <div className="popup__input-wrapper">
+                    <input className="popup__text-input popup__text-input_type_username" id="name-field"
+                           type="text" name="username"
+                           placeholder="Имя" minLength="2" maxLength="40" required/>
+                    <span className="name-field-error popup__input-error"></span>
+                </div>
+                <div className="popup__input-wrapper">
+                    <input className="popup__text-input popup__text-input_type_description"
+                           id="description-field" type="text"
+                           name="description" placeholder="Описание" minLength="2" maxLength="200"
+                           required/>
+                    <span className="description-field-error popup__input-error"></span>
+                </div>
+            </PopupWithForm>
             <PopupWithForm isOpen={isAddPlacePopupOpen}
                            onClose={closeAllPopups}
                            title="Новое место"
-                           name="card-add"
-                           children={<>
-                               <div className="popup__input-wrapper">
-                                   <input className="popup__text-input popup__text-input_type_card-heading"
-                                          id="card-heading-field" type="text"
-                                          name="card-heading" placeholder="Название" minLength="2" maxLength="30"
-                                          required/>
-                                   <span className="card-heading-field-error popup__input-error"></span>
-                               </div>
-                               <div className="popup__input-wrapper">
-                                   <input className="popup__text-input popup__text-input_type_image-link"
-                                          id="image-link-field" type="url"
-                                          name="image-link" placeholder="Ссылка на картинку" required/>
-                                   <span className="image-link-field-error popup__input-error"></span>
-                               </div>
-                           </>}
-            />
+                           name="card-add">
+                <div className="popup__input-wrapper">
+                    <input className="popup__text-input popup__text-input_type_card-heading"
+                           id="card-heading-field" type="text"
+                           name="card-heading" placeholder="Название" minLength="2" maxLength="30"
+                           required/>
+                    <span className="card-heading-field-error popup__input-error"></span>
+                </div>
+                <div className="popup__input-wrapper">
+                    <input className="popup__text-input popup__text-input_type_image-link"
+                           id="image-link-field" type="url"
+                           name="image-link" placeholder="Ссылка на картинку" required/>
+                    <span className="image-link-field-error popup__input-error"></span>
+                </div>
+            </PopupWithForm>
             <PopupWithForm isOpen={isConfirmPopupOpen}
                            onClose={closeAllPopups} title="Вы уверены?" name="confirm"/>
             <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
