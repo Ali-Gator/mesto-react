@@ -12,7 +12,7 @@ function App() {
     const [isEditProfilePopupOpen, setEditProfilePopup] = React.useState(false);
     const [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
     const [isConfirmPopupOpen, setConfirmPopup] = React.useState(false);
-    const [selectedImage, setSelectedImage] = React.useState(null);
+    const [selectedCard, setSelectedCard] = React.useState(null);
 
     function handleEditAvatarClick() {
         setEditAvatarPopup(true);
@@ -27,7 +27,7 @@ function App() {
     }
 
     function handleImageClick(card) {
-        setSelectedImage(card);
+        setSelectedCard(card);
     }
 
     function closeAllPopups() {
@@ -35,7 +35,7 @@ function App() {
         setEditProfilePopup(false);
         setAddPlacePopup(false);
         setConfirmPopup(false);
-        setSelectedImage(null);
+        setSelectedCard(null);
     }
 
     return (
@@ -98,7 +98,7 @@ function App() {
             />
             <PopupWithForm isOpen={isConfirmPopupOpen}
                            onClose={closeAllPopups} title="Вы уверены?" name="confirm"/>
-            <ImagePopup card={selectedImage} onClose={closeAllPopups}/>
+            <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
         </div>
     );
 }
