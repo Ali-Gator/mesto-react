@@ -1,6 +1,4 @@
-import {apiData} from './utils';
-
-class Api {
+export default class Api {
     constructor({baseUrl, headers}) {
         this._baseUrl = baseUrl;
         this._headers = headers;
@@ -79,7 +77,3 @@ class Api {
             .then(res => this._checkResult(res));
     }
 }
-
-const api = new Api(apiData);
-
-export default api;

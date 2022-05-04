@@ -1,36 +1,24 @@
-import React, {useState} from 'react';
-import api from '../utils/Api';
+import React from 'react';
 import Card from './Card';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
+import {CardsContext} from '../contexts/CardsContext';
 
 export default function Main({onImageClick, onAddPlace, onEditAvatar, onEditProfile}) {
 
-    const [userName, setUserName] = useState('');
-    const [userDescription, setUserDescription] = useState('');
-    const [userAvatar, setUserAvatar] = useState('');
-    const [cards, setCards] = useState([]);
-
-    React.useEffect(() => {
-        Promise.all([api.getInitialUser(), api.getInitialCards()])
-            .then(([user, cards]) => {
-                setUserName(user.name);
-                setUserDescription(user.about);
-                setUserAvatar(user.avatar);
-                setCards(cards);
-            })
-            .catch(err => console.log(err));
-    }, []);
+    const currentUser = React.useContext(CurrentUserContext);
+    const cards = React.useContext(CardsContext);
 
     return (
         <main>
             <section className="page__profile profile">
                 <button className="profile__image-button" onClick={onEditAvatar}>
-                    <img className="profile__image" src={userAvatar} alt="Изображение пользователя"/>
+                    <img className="profile__image" src={currentUser.avatar} alt="Изображение пользователя"/>
                 </button>
                 <div className="profile__name-wrapper">
-                    <h1 className="profile__name">{userName}</h1>
+                    <h1 className="profile__name">{currentUser.name}</h1>
                     <button className="profile__edit-button" type="button" onClick={onEditProfile}></button>
                 </div>
-                <p className="profile__description">{userDescription}</p>
+                <p className="profile__description">{currentUser.about}</p>
                 <button className="profile__add-button" type="button" onClick={onAddPlace}></button>
             </section>
             <section className="page__cards cards">
