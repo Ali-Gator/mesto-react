@@ -1,12 +1,10 @@
 import React from 'react';
 import Card from './Card';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
-import {CardsContext} from '../contexts/CardsContext';
 
-export default function Main({onImageClick, onAddPlace, onEditAvatar, onEditProfile}) {
+export default function Main({onImageClick, onAddPlace, onEditAvatar, onEditProfile, cards, onCardLike, onCardDelete}) {
 
     const currentUser = React.useContext(CurrentUserContext);
-    const cards = React.useContext(CardsContext);
 
     return (
         <main>
@@ -24,7 +22,7 @@ export default function Main({onImageClick, onAddPlace, onEditAvatar, onEditProf
             <section className="page__cards cards">
                 <ul className="cards__list">
                     {cards.map(card => (
-                        <Card card={card} key={card._id} onImageClick={onImageClick}/>
+                        <Card card={card} key={card._id} onImageClick={onImageClick} onCardLike={onCardLike} onCardDelete={onCardDelete}/>
                     ))}
                 </ul>
             </section>

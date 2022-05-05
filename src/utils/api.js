@@ -1,4 +1,6 @@
-export default class Api {
+import {apiData} from './constants';
+
+class Api {
     constructor({baseUrl, headers}) {
         this._baseUrl = baseUrl;
         this._headers = headers;
@@ -52,23 +54,15 @@ export default class Api {
             .then(res => this._checkResult(res));
     }
 
-    putLike(cardId) {
+    changeLikeCardStatus(cardId, isLiked) {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-            method: 'PUT',
+            method: isLiked ? 'PUT' : 'DELETE',
             headers: this._headers
         })
             .then(res => this._checkResult(res));
     }
 
-    deleteLike(cardId) {
-        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-            method: 'DELETE',
-            headers: this._headers
-        })
-            .then(res => this._checkResult(res));
-    }
-
-    patchAvatar(avatar) {
+    patchAvatar({avatar}) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
@@ -77,3 +71,7 @@ export default class Api {
             .then(res => this._checkResult(res));
     }
 }
+
+const api = new Api(apiData);
+
+export default api;
