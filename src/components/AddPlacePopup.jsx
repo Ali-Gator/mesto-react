@@ -1,7 +1,7 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-export default function AddPlacePopup({isOpen, onClose, onAddCard}) {
+export default function AddPlacePopup({isOpen, onClose, onAddCard, isSaving}) {
 
     const [title, setTitle] = React.useState('');
     const [link, setLink] = React.useState('');
@@ -25,6 +25,7 @@ export default function AddPlacePopup({isOpen, onClose, onAddCard}) {
     return <PopupWithForm isOpen={isOpen}
                           onClose={onClose}
                           onSubmit={handleSubmit}
+                          isSaving={isSaving}
                           title="Новое место"
                           name="card-add">
         <div className="popup__input-wrapper">

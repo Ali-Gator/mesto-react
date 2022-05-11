@@ -1,5 +1,5 @@
 import '../index.css';
-import React from 'react';
+import React, {useState} from 'react';
 import api from '../utils/api';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import Header from './Header';
@@ -19,6 +19,7 @@ function App() {
     const [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
     const [isConfirmPopupOpen, setConfirmPopup] = React.useState(false);
     const [selectedCard, setSelectedCard] = React.useState(null);
+    const [isSaving, setIsSaving] = useState(false);
 
     React.useEffect(() => {
         Promise.all([api.getInitialUser(), api.getInitialCards()])
@@ -72,30 +73,42 @@ function App() {
     }
 
     function handleUpdateUser(user) {
+        setIsSaving(true);
         api.patchProfile(user)
             .then((newUser) => {
                 setCurrentUser(newUser);
                 closeAllPopups();
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                alert(`${err}. Не удается отправить. Попробуйте ещё раз`);
+            })
+            .finally(() => setIsSaving(false));
     }
 
     function handleUpdateAvatar(avatar) {
+        setIsSaving(true);
         api.patchAvatar(avatar)
             .then((newUser) => {
                 setCurrentUser(newUser);
                 closeAllPopups();
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                alert(`${err}. Не удается отправить. Попробуйте ещё раз`);
+            })
+            .finally(() => setIsSaving(false));
     }
 
     function handleAddCard(card) {
+        setIsSaving(true);
         api.postCard(card)
             .then(newCard => {
                 setCards(state => [newCard, ...state]);
                 closeAllPopups();
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                alert(`${err}. Не удается отправить. Попробуйте ещё раз`);
+            })
+            .finally(() => setIsSaving(false));
     }
 
     return (
@@ -108,10 +121,11 @@ function App() {
                 />
                 <Footer/>
                 <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}
-                                 onUpdateAvatar={handleUpdateAvatar}/>
+                                 onUpdateAvatar={handleUpdateAvatar} isSaving={isSaving}/>
                 <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}
-                                  onUpdateUser={handleUpdateUser}/>
-                <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddCard={handleAddCard}/>
+                                  onUpdateUser={handleUpdateUser} isSaving={isSaving}/>
+                <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddCard={handleAddCard}
+                               isSaving={isSaving}/>
                 <PopupWithForm isOpen={isConfirmPopupOpen}
                                onClose={closeAllPopups} title="Вы уверены?" name="confirm"/>
                 <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
