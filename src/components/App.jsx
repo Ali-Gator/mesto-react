@@ -1,25 +1,26 @@
 import '../index.css';
-import React, {useState} from 'react';
+import React from 'react';
 import api from '../utils/api';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import ConfirmPopup from './ConfirmPopup';
 
 function App() {
     const [currentUser, setCurrentUser] = React.useState({});
     const [cards, setCards] = React.useState([]);
     const [isEditAvatarPopupOpen, setEditAvatarPopup] = React.useState(false);
     const [isEditProfilePopupOpen, setEditProfilePopup] = React.useState(false);
-    const [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
-    const [isConfirmPopupOpen, setConfirmPopup] = React.useState(false);
+    const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+    const [isConfirmPopupOpen, setConfirmPopupOpen] = React.useState(false);
     const [selectedCard, setSelectedCard] = React.useState(null);
-    const [isSaving, setIsSaving] = useState(false);
+    const [isSaving, setIsSaving] = React.useState(false);
+    const [cardToDelete, setCardToDelete] = React.useState(null);
 
     React.useEffect(() => {
         Promise.all([api.getInitialUser(), api.getInitialCards()])
@@ -39,7 +40,7 @@ function App() {
     }
 
     function handleAddPlaceClick() {
-        setAddPlacePopup(true);
+        setAddPlacePopupOpen(true);
     }
 
     function handleImageClick(card) {
@@ -49,8 +50,8 @@ function App() {
     function closeAllPopups() {
         setEditAvatarPopup(false);
         setEditProfilePopup(false);
-        setAddPlacePopup(false);
-        setConfirmPopup(false);
+        setAddPlacePopupOpen(false);
+        setConfirmPopupOpen(false);
         setSelectedCard(null);
     }
 
@@ -65,11 +66,17 @@ function App() {
     }
 
     function handleCardDelete(card) {
-        api.deleteCard(card._id)
-            .finally(() => {
-                setCards(state => state.filter(c => c._id !== card._id));
+        setConfirmPopupOpen(true);
+        setCardToDelete(card);
+    }
+
+    function handleConfirmedCardDelete() {
+        api.deleteCard(cardToDelete._id)
+            .then(() => {
+                setCards(state => state.filter(c => c._id !== cardToDelete._id));
+                closeAllPopups();
             })
-            .catch(err => console.log(err));
+            .catch(err => alert(`${err}. Попробуйте ещё раз`));
     }
 
     function handleUpdateUser(user) {
@@ -126,8 +133,7 @@ function App() {
                                   onUpdateUser={handleUpdateUser} isSaving={isSaving}/>
                 <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddCard={handleAddCard}
                                isSaving={isSaving}/>
-                <PopupWithForm isOpen={isConfirmPopupOpen}
-                               onClose={closeAllPopups} title="Вы уверены?" name="confirm"/>
+                <ConfirmPopup isOpen={isConfirmPopupOpen} onClose={closeAllPopups} onAgree={handleConfirmedCardDelete}/>
                 <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
             </div>
         </CurrentUserContext.Provider>
